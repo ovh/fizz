@@ -74,6 +74,7 @@ type (
 	V struct {
 		L int
 	}
+	Foo[T any] struct{}
 )
 
 func (*X) TypeName() string { return "XXX" }
@@ -601,6 +602,9 @@ func TestTypeName(t *testing.T) {
 
 	// Unnamed type.
 	assert.Equal(t, "", g.typeName(rt(struct{}{})))
+
+	// generic type
+	assert.Equal(t, "Foo-openapi.X", g.typeName(rt(Foo[X]{})))
 }
 
 // TestSetInfo tests that the informations
